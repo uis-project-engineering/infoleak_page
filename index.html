@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>情報漏えい月次ウォッチ</title>
+  <meta name="description" content="個人情報保護委員会の漏えい等報告件数、最新の情報漏えい事例、警察庁のランサムウェア被害報告件数を月ごとに確認できます。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=BIZ+UDPGothic:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>情報漏えい月次ウォッチ</h1>
+      <div class="controls">
+        <label for="month">対象月</label>
+        <input type="month" id="month" min="2025-04">
+        <button id="prev" type="button">◀ 前月</button>
+        <button id="next" type="button">翌月 ▶</button>
+      </div>
+    </header>
+
+    <div class="kpis">
+      <div class="kpi gov"><span class="k" id="k-q-label">該当四半期の漏えい等報告</span><span class="v" id="k-ppc">–</span><span class="s">個人情報保護委員会</span></div>
+      <div class="kpi own"><span class="k">この月に取り上げた事例</span><span class="v" id="k-total">–</span><span class="s">サイバーセキュリティラボ</span></div>
+      <div class="kpi npa"><span class="k" id="k-h-label">該当半期のランサムウェア被害報告</span><span class="v" id="k-npa">–</span><span class="s">警察庁</span></div>
+    </div>
+
+    <!-- 漏えい等報告の件数 -->
+    <section class="block">
+      <div class="block-head"><h2>漏えい等報告の件数</h2><span class="src-note">個人情報保護委員会</span></div>
+      <div class="grid2">
+        <div class="panel">
+          <h3>四半期ごとの報告件数（個人情報）</h3>
+          <div class="chart" id="ppc-chart"></div>
+          <div class="legend"><span><i class="biz"></i>民間事業者</span><span><i class="gov"></i>国の行政機関・地方公共団体等</span></div>
+        </div>
+        <div class="panel">
+          <h3>年度合計（民間事業者）</h3>
+          <dl class="facts" id="ppc-annual"></dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 最新の情報漏えい事例 -->
+    <section class="block">
+      <div class="block-head"><h2 id="month-title">最新の情報漏えい事例</h2><span class="src-note">サイバーセキュリティラボで取り上げた事例</span></div>
+      <div class="grid2">
+        <div class="panel">
+          <h3>事例一覧</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>公表日</th><th>組織</th><th>原因</th><th>影響人数</th><th>記事</th></tr></thead>
+              <tbody id="list"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel"><h3>原因別</h3><div class="bars" id="causes"></div></div>
+      </div>
+    </section>
+
+    <!-- ランサムウェア被害の報告件数 -->
+    <section class="block">
+      <div class="block-head"><h2>ランサムウェア被害の報告件数</h2><span class="src-note">警察庁</span></div>
+      <div class="grid2">
+        <div class="panel">
+          <h3>半期ごとの被害報告件数</h3>
+          <div class="chart" id="npa-chart"></div>
+        </div>
+        <div class="panel">
+          <h3 id="npa-latest-title">最新の半期</h3>
+          <dl class="facts" id="npa-latest"></dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 漏えいが疑われるときは -->
+    <section class="block help" aria-labelledby="help-title">
+      <div class="block-head"><h2 id="help-title">漏えいが疑われるときは</h2></div>
+
+      <div class="panel cta-panel">
+        <div>
+          <h3>自社のアカウントが漏れていないか確かめる</h3>
+          <p>仕事で使っているメールアドレスを入力するだけで、過去の漏えいに含まれていないかを無料で確認できます。</p>
+        </div>
+        <a class="cta" id="link-checker" href="#" target="_blank" rel="noopener">アカウント流出チェッカーを使う</a>
+      </div>
+
+      <div class="panel">
+        <h3>公的な相談窓口</h3>
+        <div class="contacts">
+          <div class="contact">
+            <span class="who">個人情報保護委員会</span>
+            <p>個人データの漏えいが分かったときの報告先です。速報は発覚から概ね3〜5日以内、確報は30日以内です。</p>
+            <p class="line">個人情報保護法相談ダイヤル<br><span class="tel">03-6457-9849</span><span class="hours">平日 9:30〜17:30</span></p>
+            <a href="https://www.ppc.go.jp/personalinfo/legal/leakAction" target="_blank" rel="noopener">漏えい等の対応と報告フォーム</a>
+          </div>
+          <div class="contact">
+            <span class="who">IPA（情報処理推進機構）</span>
+            <p>不正アクセスやウイルス感染が疑われるときに、初動対応の助言を受けられます。企業・組織向けの窓口です。</p>
+            <p class="line">メールで受付<br><span class="tel">cs-support@ipa.go.jp</span></p>
+            <a href="https://www.ipa.go.jp/security/support/soudan.html" target="_blank" rel="noopener">サイバーセキュリティ相談・届出窓口</a>
+          </div>
+          <div class="contact">
+            <span class="who">警察</span>
+            <p>ランサムウェア被害や不正アクセスなど、犯罪の可能性があるときは、所在地の都道府県警察に相談します。</p>
+            <p class="line">都道府県警察のサイバー犯罪相談窓口</p>
+            <a href="https://www.npa.go.jp/bureau/cyber/ichiran.html" target="_blank" rel="noopener">都道府県警察の窓口一覧</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel cta-panel">
+        <div>
+          <h3>中小企業向けセキュリティセミナー</h3>
+          <p>情報漏えいやランサムウェアへの備えを、専任担当者がいない会社でもできるところから解説します。</p>
+        </div>
+        <a class="cta ghost" id="link-seminar" href="#" target="_blank" rel="noopener">開催予定のセミナーを見る</a>
+      </div>
+    </section>
+
+    <footer>
+      <span>漏えい等報告件数の出典：「漏えい等報告の処理状況」（個人情報保護委員会）（<a href="https://www.ppc.go.jp/" target="_blank" rel="noopener">https://www.ppc.go.jp/</a>）を加工して作成</span>
+      <span>ランサムウェア被害報告件数の出典：「サイバー空間をめぐる脅威の情勢等について」（警察庁）（<a href="https://www.npa.go.jp/publications/statistics/cybersecurity/" target="_blank" rel="noopener">https://www.npa.go.jp/publications/statistics/cybersecurity/</a>）を加工して作成</span>
+    </footer>
+  </div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
